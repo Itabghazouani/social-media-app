@@ -3,7 +3,7 @@
 import { createSessionCookie } from "@/lib/createSessionCookie";
 import prisma from "@/lib/prisma";
 import { signUpSchema, SignUpValues } from "@/lib/validation";
-import { hash } from "@node-rs/argon2";
+import bcrypt from "bcrypt";
 import { generateIdFromEntropySize } from "lucia";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
 import { redirect } from "next/navigation";
@@ -14,12 +14,9 @@ export const signUp = async (
   try {
     const { username, email, password } = signUpSchema.parse(credentials);
 
-    const passwordHash = await hash(password, {
-      memoryCost: 19456,
-      timeCost: 2,
-      outputLen: 32,
-      parallelism: 1,
-    });
+    // Use bcrypt.hash instead of argon2.hash
+    const saltRounds = 10;
+    const passwordHash = await bcrypt.hash(password, saltRounds);
 
     const userId = generateIdFromEntropySize(10);
 
