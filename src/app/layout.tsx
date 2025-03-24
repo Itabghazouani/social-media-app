@@ -14,10 +14,10 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    template: "%s | bugbook",
-    default: "bugbook",
+    template: "%s | PlateMates",
+    default: "PlateMates",
   },
-  description: "The social media for powernerds",
+  description: "Where receipes meets friends",
 };
 
 export default function RootLayout({
