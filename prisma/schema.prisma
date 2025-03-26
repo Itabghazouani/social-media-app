@@ -16,16 +16,19 @@ datasource db {
 }
 
 model User {
-  id           String    @id
-  username     String    @unique
-  displayName  String
-  email        String?   @unique
-  passwordHash String?
-  googleId     String?   @unique
-  avatarUrl    String?
-  bio          String?
-  sessions     Session[]
-  createdAt    DateTime  @default(now())
+  id            String    @id
+  username      String    @unique
+  displayName   String
+  email         String?   @unique
+  passwordHash  String?
+  googleId      String?   @unique
+  avatarUrl     String?
+  bio           String?
+  emailVerified Boolean   @default(false)
+  sessions      Session[]
+  createdAt     DateTime  @default(now())
+
+  emailVerification EmailVerificationCode?
 
   @@map("users")
 }
@@ -37,4 +40,15 @@ model Session {
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("sessions")
+}
+
+model EmailVerificationCode {
+  id         String   @id @default(cuid())
+  code       String
+  userId     String   @unique
+  email      String
+  expires_at DateTime
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("email_verification_codes")
 }

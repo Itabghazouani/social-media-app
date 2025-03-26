@@ -20,22 +20,37 @@ export const lucia = new Lucia(adapter, {
       displayName: databaseUserAttributes.displayName,
       avatarUrl: databaseUserAttributes.avatarUrl,
       googleId: databaseUserAttributes.googleId,
+      email: databaseUserAttributes.email,
+      emailVerified: databaseUserAttributes.emailVerified,
     };
   },
 });
 
 declare module "lucia" {
   interface Register {
-    lucia: typeof lucia;
+    Lucia: typeof lucia;
     DatabaseUserAttributes: DatabaseUserAttributes;
   }
+
+  // Add this interface to extend the User type
+  interface UserAttributes {
+    username: string;
+    displayName: string;
+    avatarUrl: string | null;
+    googleId: string | null;
+    email: string | null;
+    emailVerified: boolean;
+  }
 }
+
 interface DatabaseUserAttributes {
   id: string;
   username: string;
   displayName: string;
   avatarUrl: string | null;
   googleId: string | null;
+  email: string | null;
+  emailVerified: boolean;
 }
 
 export const validateRequest = cache(

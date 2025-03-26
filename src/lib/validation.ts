@@ -30,3 +30,12 @@ export const loginSchema = z.object({
 });
 
 export type LoginValues = z.infer<typeof loginSchema>;
+
+export const verificationSchema = z.object({
+  code: z
+    .string()
+    .min(6, "Verification code must be 6 characters long")
+    .max(6, "Verification code must be 6 characters long"),
+});
+
+export type VerificationValues = z.infer<typeof verificationSchema>;

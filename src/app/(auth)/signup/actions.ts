@@ -1,6 +1,10 @@
 "use server";
 
 import { createSessionCookie } from "@/lib/createSessionCookie";
+import {
+  generateEmailVerificationCode,
+  sendVerificationEmail,
+} from "@/lib/emailVerification";
 import prisma from "@/lib/prisma";
 import { signUpSchema, SignUpValues } from "@/lib/validation";
 import bcrypt from "bcrypt";
@@ -10,11 +14,10 @@ import { redirect } from "next/navigation";
 
 export const signUp = async (
   credentials: SignUpValues,
-): Promise<{ error: string }> => {
+): Promise<{ error?: string; loading?: boolean }> => {
   try {
     const { username, email, password } = signUpSchema.parse(credentials);
 
-    // Use bcrypt.hash instead of argon2.hash
     const saltRounds = 10;
     const passwordHash = await bcrypt.hash(password, saltRounds);
 
@@ -31,6 +34,7 @@ export const signUp = async (
 
     if (existingUsername) {
       return {
+        loading: true,
         error: "Username is already taken.",
       };
     }
@@ -57,12 +61,25 @@ export const signUp = async (
         displayName: username,
         email,
         passwordHash,
+        emailVerified: false,
       },
     });
 
+    const verificationCode = await generateEmailVerificationCode(userId, email);
+    const emailResult = await sendVerificationEmail(email, verificationCode);
+
+    if (!emailResult.success) {
+      console.error(
+        `Failed to send verification email to ${email}: ${emailResult.error}`,
+      );
+      return {
+        error: "Failed to send verification email.",
+      };
+    }
+
     await createSessionCookie(userId);
 
-    return redirect("/");
+    return redirect("/verify-email");
   } catch (error) {
     if (isRedirectError(error)) throw error;
     console.error("Error :", error);
