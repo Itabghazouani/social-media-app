@@ -28,7 +28,8 @@ model User {
   sessions      Session[]
   createdAt     DateTime  @default(now())
 
-  emailVerification EmailVerificationCode?
+  emailVerification   EmailVerificationCode?
+  passwordResetTokens PasswordResetToken[]
 
   @@map("users")
 }
@@ -43,12 +44,22 @@ model Session {
 }
 
 model EmailVerificationCode {
-  id         String   @id @default(cuid())
-  code       String
-  userId     String   @unique
-  email      String
-  expires_at DateTime
-  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id        String   @id @default(cuid())
+  code      String
+  userId    String   @unique
+  email     String
+  expiresAt DateTime
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("email_verification_codes")
+}
+
+model PasswordResetToken {
+  id        String   @id @default(cuid())
+  tokenHash String   @unique
+  userId    String
+  expiresAt DateTime
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("password_reset_tokens")
 }

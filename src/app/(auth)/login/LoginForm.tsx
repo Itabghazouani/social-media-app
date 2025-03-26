@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { LoadingButton, PasswordInput } from "@/components";
+import Link from "next/link";
 
 const LoginForm = () => {
   const [error, setError] = useState<string>();
@@ -45,7 +46,7 @@ const LoginForm = () => {
           name="emailOrUsername"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Username</FormLabel>
+              <FormLabel>Username or Email</FormLabel>
               <FormControl>
                 <Input placeholder="Username" {...field} />
               </FormControl>
@@ -58,7 +59,15 @@ const LoginForm = () => {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+              <div className="flex items-center justify-between">
+                <FormLabel>Password</FormLabel>
+                <Link
+                  href="/forgot-password"
+                  className="text-sm text-primary hover:underline"
+                >
+                  Forgot Password?
+                </Link>
+              </div>
               <FormControl>
                 <PasswordInput placeholder="Password" {...field} />
               </FormControl>

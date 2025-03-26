@@ -71,7 +71,7 @@ export const resendVerificationCode = async (): Promise<{
 
     if (lastCode) {
       const lastCodeGeneratedAt = new Date(
-        lastCode.expires_at.getTime() - codeLifetimeMs,
+        lastCode.expiresAt.getTime() - codeLifetimeMs,
       );
       const timeSinceLastCodeMs =
         new Date().getTime() - lastCodeGeneratedAt.getTime();

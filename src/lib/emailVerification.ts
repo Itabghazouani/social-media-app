@@ -19,7 +19,7 @@ export const generateEmailVerificationCode = async (
       userId,
       email,
       code,
-      expires_at: createDate(new TimeSpan(10, "m")),
+      expiresAt: createDate(new TimeSpan(10, "m")),
     },
   });
 
@@ -41,7 +41,7 @@ export const verifyVerificationCode = async (
   }
 
   // Check if code is expired
-  if (new Date() > databaseCode.expires_at) {
+  if (new Date() > databaseCode.expiresAt) {
     // Delete expired code
     await prisma.emailVerificationCode.delete({
       where: { id: databaseCode.id },
