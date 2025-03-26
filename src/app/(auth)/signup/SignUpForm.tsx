@@ -26,6 +26,7 @@ const SignUpForm = () => {
       email: "",
       username: "",
       password: "",
+      confirmPassword: "",
     },
   });
 
@@ -76,6 +77,19 @@ const SignUpForm = () => {
               <FormLabel>Password</FormLabel>
               <FormControl>
                 <PasswordInput placeholder="Password" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="confirmPassword"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Confirm Password</FormLabel>
+              <FormControl>
+                <PasswordInput placeholder="Confirm Password" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
