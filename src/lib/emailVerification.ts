@@ -83,7 +83,7 @@ export const sendVerificationEmail = async (
 
     // Send email (without destructuring unused variables)
     const result = await resend.emails.send({
-      from: "onboarding@resend.dev", // Use a domain you've verified in Resend
+      from: "PlateMates <itab.ghazouani@gmail.com>",
       to: email,
       subject: "Verify your PlateMates account",
       html: `

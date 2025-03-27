@@ -1,4 +1,4 @@
-import { UserButton } from "@/components";
+import { SearchField, UserButton } from "@/components";
 import Link from "next/link";
 
 const Navbar = () => {
@@ -8,7 +8,8 @@ const Navbar = () => {
         <Link href="/" className="text-2xl font-bold text-primary">
           PlateMates
         </Link>
-        <UserButton />
+        <SearchField />
+        <UserButton className="sm:ms-auto" />
       </div>
     </header>
   );

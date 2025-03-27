@@ -125,7 +125,7 @@ export async function sendPasswordResetEmail(
     console.log("Reset link:", resetLink);
 
     const result = await resend.emails.send({
-      from: "PlateMates <onboarding@resend.dev>",
+      from: "PlateMates <itab.ghazouani@gmail.com>",
       to: email,
       subject: "Reset Your PlateMates Password",
       html: `
