@@ -1,3 +1,5 @@
+"use client";
+
 import { forwardRef, useState } from "react";
 import { Input, InputProps } from "./ui/input";
 import { cn } from "@/lib/utils";
