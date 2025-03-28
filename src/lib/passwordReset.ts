@@ -5,12 +5,11 @@ import { generateIdFromEntropySize } from "lucia";
 import prisma from "./prisma";
 import { Resend } from "resend";
 
-// Initialize Resend with API key
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-export async function createPasswordResetToken(
+export const createPasswordResetToken = async (
   userId: string,
-): Promise<string> {
+): Promise<string> => {
   console.log("Creating password reset token for user:", userId);
 
   try {
@@ -47,11 +46,11 @@ export async function createPasswordResetToken(
     console.error("Error creating password reset token:", error);
     throw error;
   }
-}
+};
 
-export async function validatePasswordResetToken(
+export const validatePasswordResetToken = async (
   token: string,
-): Promise<string | null> {
+): Promise<string | null> => {
   console.log(
     "Validating password reset token:",
     token.substring(0, 5) + "...",
@@ -96,9 +95,11 @@ export async function validatePasswordResetToken(
     console.error("Error validating password reset token:", error);
     return null;
   }
-}
+};
 
-export async function deletePasswordResetToken(token: string): Promise<void> {
+export const deletePasswordResetToken = async (
+  token: string,
+): Promise<void> => {
   try {
     // Hash the token to find it in the database
     const tokenHash = encodeHex(await sha256(new TextEncoder().encode(token)));
@@ -114,12 +115,12 @@ export async function deletePasswordResetToken(token: string): Promise<void> {
   } catch (error) {
     console.error("Error deleting password reset token:", error);
   }
-}
+};
 
-export async function sendPasswordResetEmail(
+export const sendPasswordResetEmail = async (
   email: string,
   resetLink: string,
-): Promise<{ success: boolean; error?: string }> {
+): Promise<{ success: boolean; error?: string }> => {
   try {
     console.log("Sending password reset email to:", email);
     console.log("Reset link:", resetLink);
@@ -156,4 +157,4 @@ export async function sendPasswordResetEmail(
       error: error instanceof Error ? error.message : "Failed to send email",
     };
   }
-}
+};
