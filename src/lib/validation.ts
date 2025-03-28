@@ -68,3 +68,7 @@ export const resetPasswordSchema = z
   });
 
 export type ResetPasswordValues = z.infer<typeof resetPasswordSchema>;
+
+export const createPostSchema = z.object({
+  content: requiredString("Content"),
+});
