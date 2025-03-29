@@ -22,6 +22,7 @@ const PostEditor = () => {
         placeholder: "What's on the table today?",
       }),
     ],
+    immediatelyRender: false,
   });
 
   const input =
