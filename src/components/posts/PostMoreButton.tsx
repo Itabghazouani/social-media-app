@@ -1,6 +1,6 @@
 "use client";
 
-import { PostData } from "@/lib/types";
+import { TPostData } from "@/lib/types";
 import { useState } from "react";
 import DeletePostDialog from "./DeletePostDialog";
 import {
@@ -13,7 +13,7 @@ import { Button } from "../ui/button";
 import { MoreHorizontal, Trash2 } from "lucide-react";
 
 interface IPostMoreButtonProps {
-  post: PostData;
+  post: TPostData;
   className?: string;
 }
 

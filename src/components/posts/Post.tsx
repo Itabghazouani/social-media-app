@@ -1,6 +1,6 @@
 "use client";
 
-import { PostData } from "@/lib/types";
+import { TPostData } from "@/lib/types";
 import Link from "next/link";
 import UserAvatar from "../UserAvatar";
 import { formatRelativeDate } from "@/lib/utils";
@@ -8,7 +8,7 @@ import { useSession } from "@/app/(main)/SessionProvider";
 import PostMoreButton from "./PostMoreButton";
 
 interface IPostProps {
-  post: PostData;
+  post: TPostData;
 }
 
 const Post = ({ post }: IPostProps) => {

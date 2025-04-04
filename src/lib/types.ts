@@ -6,6 +6,8 @@ export const getUserDataSelect = (loggedInUserId: string) => {
     username: true,
     displayName: true,
     avatarUrl: true,
+    bio: true,
+    createdAt: true,
     followers: {
       where: {
         followerId: loggedInUserId,
@@ -16,13 +18,18 @@ export const getUserDataSelect = (loggedInUserId: string) => {
     },
     _count: {
       select: {
+        posts: true,
         followers: true,
       },
     },
   } satisfies Prisma.UserSelect;
 };
 
-export const getPostDataIncludes = (loggedInUserId: string) => {
+export type TUserData = Prisma.UserGetPayload<{
+  select: ReturnType<typeof getUserDataSelect>;
+}>;
+
+export const getPostDataInclude = (loggedInUserId: string) => {
   return {
     user: {
       select: getUserDataSelect(loggedInUserId),
@@ -30,12 +37,12 @@ export const getPostDataIncludes = (loggedInUserId: string) => {
   } satisfies Prisma.PostInclude;
 };
 
-export type PostData = Prisma.PostGetPayload<{
-  include: ReturnType<typeof getPostDataIncludes>;
+export type TPostData = Prisma.PostGetPayload<{
+  include: ReturnType<typeof getPostDataInclude>;
 }>;
 
 export interface IPostsPage {
-  posts: PostData[];
+  posts: TPostData[];
   nextCursor: string | null;
 }
 

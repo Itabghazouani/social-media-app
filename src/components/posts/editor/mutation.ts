@@ -1,67 +1,62 @@
+import { useSession } from "@/app/(main)/SessionProvider";
 import { useToast } from "@/components/ui/use-toast";
+import { IPostsPage, TPostData } from "@/lib/types";
 import {
   InfiniteData,
-  QueryFilters,
   useMutation,
   useQueryClient,
 } from "@tanstack/react-query";
 import { submitPost } from "./actions";
-import { IPostsPage } from "@/lib/types";
 
 export const useSubmitPostMutation = () => {
   const { toast } = useToast();
-
   const queryClient = useQueryClient();
+  const { user } = useSession();
+
+  const updateQueryData = async (queryKey: string[], newPost: TPostData) => {
+    await queryClient.cancelQueries({ queryKey });
+
+    queryClient.setQueriesData<InfiniteData<IPostsPage, string | null>>(
+      { queryKey },
+      (oldData) => {
+        if (!oldData || !oldData.pages || !oldData.pages[0]) return oldData;
+
+        const firstPage = oldData.pages[0];
+        return {
+          pageParams: oldData.pageParams,
+          pages: [
+            {
+              posts: [newPost, ...firstPage.posts],
+              nextCursor: firstPage.nextCursor,
+            },
+            ...oldData.pages.slice(1),
+          ],
+        };
+      },
+    );
+
+    queryClient.invalidateQueries({
+      queryKey,
+      predicate: (query) => !query.state.data,
+    });
+  };
 
   const mutation = useMutation({
     mutationFn: submitPost,
     onSuccess: async (newPost) => {
-      const queryFilter: QueryFilters<
-        InfiniteData<IPostsPage, string | null>,
-        Error,
-        InfiniteData<IPostsPage, string | null>,
-        readonly unknown[]
-      > = {
-        queryKey: ["post-feed", "for-you"],
-      };
-      await queryClient.cancelQueries(queryFilter);
-      queryClient.setQueriesData<InfiniteData<IPostsPage, string | null>>(
-        queryFilter,
-        (oldData) => {
-          const firstPage = oldData?.pages[0];
-          if (firstPage) {
-            return {
-              pageParams: oldData.pageParams,
-              pages: [
-                {
-                  posts: [newPost, ...firstPage.posts],
-                  nextCursor: firstPage.nextCursor,
-                },
-                ...oldData.pages.slice(1),
-              ],
-            };
-          }
-        },
-      );
+      await updateQueryData(["post-feed", "for-you"], newPost);
 
-      queryClient.invalidateQueries({
-        queryKey: queryFilter.queryKey,
-        predicate(query) {
-          return !query.state.data;
-        },
-      });
+      await updateQueryData(["post-feed", "user-posts", user.id], newPost);
 
       toast({
-        title: "Post submitted",
-        description: "Your post has been submitted successfully.",
+        description: "Post created",
       });
     },
-    onError(error) {
-      console.error("Error :", error);
+    onError: (error) => {
+      console.error(error);
       toast({
         variant: "destructive",
-        title: "Error",
-        description: "Something went wrong while submitting your post.",
+        description: "Failed to post. Please try again.",
       });
     },
   });

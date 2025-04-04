@@ -1,4 +1,4 @@
-import { PostData } from "@/lib/types";
+import { TPostData } from "@/lib/types";
 import { useDeletePostMutation } from "./mutation";
 import {
   Dialog,
@@ -12,7 +12,7 @@ import LoadingButton from "../LoadingButton";
 import { Button } from "../ui/button";
 
 interface IDeletePostDialogProps {
-  post: PostData;
+  post: TPostData;
   open: boolean;
   onClose: () => void;
 }

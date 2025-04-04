@@ -26,7 +26,7 @@ model User {
   bio                 String?
   emailVerified       Boolean                @default(false)
   sessions            Session[]
-  Posts               Post[]
+  posts               Post[]
   emailVerification   EmailVerificationCode?
   passwordResetTokens PasswordResetToken[]
   following           Follow[]               @relation("Following")
