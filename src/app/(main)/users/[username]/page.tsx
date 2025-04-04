@@ -8,7 +8,8 @@ export interface IPageProps {
   params: { username: string };
 }
 
-const Page = async ({ params: { username } }: IPageProps) => {
+const Page = async ({ params }: IPageProps) => {
+  const username = params.username;
   const { user: loggedInUser } = await validateRequest();
 
   if (!loggedInUser) {

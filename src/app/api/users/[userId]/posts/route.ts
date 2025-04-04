@@ -5,9 +5,10 @@ import { NextRequest } from "next/server";
 
 export const GET = async (
   req: NextRequest,
-  { params: { userId } }: { params: { userId: string } },
+  { params }: { params: { userId: string } },
 ) => {
   try {
+    const userId = params.userId;
     const cursor = req.nextUrl.searchParams.get("cursor") || undefined;
 
     const pageSize = 10;
