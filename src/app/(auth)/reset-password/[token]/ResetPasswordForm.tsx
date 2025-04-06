@@ -1,6 +1,9 @@
 "use client";
 
-import { LoadingButton, PasswordInput } from "@/components";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { AlertCircle } from "lucide-react";
+import { useState, useTransition } from "react";
+import { useForm } from "react-hook-form";
 import {
   Form,
   FormControl,
@@ -10,11 +13,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { resetPasswordSchema, ResetPasswordValues } from "@/lib/validation";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { AlertCircle } from "lucide-react";
-import { useState, useTransition } from "react";
-import { useForm } from "react-hook-form";
 import { resetPassword } from "./actions";
+import { LoadingButton, PasswordInput } from "@/components";
 
 interface IResetPasswordFormProps {
   token: string;

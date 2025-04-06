@@ -1,7 +1,8 @@
 import { Loader2 } from "lucide-react";
 import { Suspense } from "react";
-import WhoToFollow from "../WhoToFollow";
+
 import TrendingTopics from "./TrendingTopics";
+import WhoToFollow from "./WhoToFollow";
 
 const TrendsSidebar = () => {
   return (

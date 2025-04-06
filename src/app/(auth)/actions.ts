@@ -1,8 +1,8 @@
 "use server";
 
-import { lucia, validateRequest } from "@/auth";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { lucia, validateRequest } from "@/auth";
 
 export const logout = async () => {
   const { session } = await validateRequest();

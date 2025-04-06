@@ -1,7 +1,8 @@
 "use client";
 
-import { TPostData } from "@/lib/types";
+import { MoreHorizontal, Trash2 } from "lucide-react";
 import { useState } from "react";
+import { TPostData } from "@/lib/types";
 import DeletePostDialog from "./DeletePostDialog";
 import {
   DropdownMenu,
@@ -10,7 +11,6 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { Button } from "../ui/button";
-import { MoreHorizontal, Trash2 } from "lucide-react";
 
 interface IPostMoreButtonProps {
   post: TPostData;

@@ -1,6 +1,6 @@
+import { redirect } from "next/navigation";
 import { validateRequest } from "@/auth";
 import { Metadata } from "next";
-import { redirect } from "next/navigation";
 import EmailVerificationForm from "./EmailVerificationForm";
 
 export const metadata: Metadata = {

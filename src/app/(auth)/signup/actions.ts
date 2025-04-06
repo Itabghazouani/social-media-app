@@ -1,5 +1,8 @@
 "use server";
 
+import { generateIdFromEntropySize } from "lucia";
+import { isRedirectError } from "next/dist/client/components/redirect-error";
+import { redirect } from "next/navigation";
 import { createSessionCookie } from "@/lib/createSessionCookie";
 import {
   generateEmailVerificationCode,
@@ -8,9 +11,6 @@ import {
 import prisma from "@/lib/prisma";
 import { signUpSchema, SignUpValues } from "@/lib/validation";
 import bcrypt from "bcrypt";
-import { generateIdFromEntropySize } from "lucia";
-import { isRedirectError } from "next/dist/client/components/redirect-error";
-import { redirect } from "next/navigation";
 
 export const signUp = async (
   credentials: SignUpValues,

@@ -1,11 +1,11 @@
 "use server";
 
+import { isRedirectError } from "next/dist/client/components/redirect-error";
+import { redirect } from "next/navigation";
 import { createSessionCookie } from "@/lib/createSessionCookie";
 import prisma from "@/lib/prisma";
 import { loginSchema, LoginValues } from "@/lib/validation";
 import bcrypt from "bcrypt";
-import { isRedirectError } from "next/dist/client/components/redirect-error";
-import { redirect } from "next/navigation";
 
 export const login = async (
   credentials: LoginValues,

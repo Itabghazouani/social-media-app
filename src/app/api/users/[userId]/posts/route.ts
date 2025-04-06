@@ -1,14 +1,14 @@
+import { NextRequest } from "next/server";
 import { validateRequest } from "@/auth";
 import prisma from "@/lib/prisma";
 import { getPostDataInclude, IPostsPage } from "@/lib/types";
-import { NextRequest } from "next/server";
 
 export const GET = async (
   req: NextRequest,
   { params }: { params: { userId: string } },
 ) => {
   try {
-    const userId = params.userId;
+    const { userId } = params;
     const cursor = req.nextUrl.searchParams.get("cursor") || undefined;
 
     const pageSize = 10;

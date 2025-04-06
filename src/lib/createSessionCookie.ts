@@ -1,5 +1,5 @@
-import { lucia } from "@/auth";
 import { cookies } from "next/headers";
+import { lucia } from "@/auth";
 
 export const createSessionCookie = async (userId: string) => {
   const session = await lucia.createSession(userId, {});

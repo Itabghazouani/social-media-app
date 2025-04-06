@@ -1,6 +1,6 @@
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Bell, Bookmark, Home, Mail } from "lucide-react";
-import Link from "next/link";
 
 interface IMenuBarProps {
   className?: string;

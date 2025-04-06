@@ -1,9 +1,9 @@
+import { Resend } from "resend";
+import { generateIdFromEntropySize } from "lucia";
+import { encodeHex } from "oslo/encoding";
 import { TimeSpan, createDate, isWithinExpirationDate } from "oslo";
 import { sha256 } from "oslo/crypto";
-import { encodeHex } from "oslo/encoding";
-import { generateIdFromEntropySize } from "lucia";
 import prisma from "./prisma";
-import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 

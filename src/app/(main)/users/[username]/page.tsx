@@ -3,13 +3,27 @@ import TrendsSidebar from "@/components/sidebar/TrendsSidebar";
 import { getUser } from "@/lib/getUser";
 import UserProfile from "./UserProfile";
 import UserPostsFeed from "./UserPostsFeed";
+import { Metadata } from "next";
 
 export interface IPageProps {
   params: { username: string };
 }
 
+export const generateMetadata = async ({
+  params: { username },
+}: IPageProps): Promise<Metadata> => {
+  const { user: loggedInUser } = await validateRequest();
+  if (!loggedInUser) return {};
+
+  const user = await getUser(username, loggedInUser.id);
+
+  return {
+    title: `${user.displayName} (@${user.username})`,
+  };
+};
+
 const Page = async ({ params }: IPageProps) => {
-  const username = params.username;
+  const { username } = params;
   const { user: loggedInUser } = await validateRequest();
 
   if (!loggedInUser) {

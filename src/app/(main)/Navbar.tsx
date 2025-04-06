@@ -1,5 +1,6 @@
-import { SearchField, UserButton } from "@/components";
 import Link from "next/link";
+import SearchField from "@/components/SearchField";
+import UserButton from "@/components/user/UserButton";
 
 const Navbar = () => {
   return (

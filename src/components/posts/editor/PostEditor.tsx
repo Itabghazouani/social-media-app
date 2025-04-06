@@ -1,9 +1,9 @@
 "use client";
 
-import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
+import { EditorContent, useEditor } from "@tiptap/react";
 import Placeholder from "@tiptap/extension-placeholder";
-import UserAvatar from "@/components/UserAvatar";
+import UserAvatar from "@/components/user/UserAvatar";
 import { useSession } from "@/app/(main)/SessionProvider";
 import "./styles.css";
 import { useSubmitPostMutation } from "./mutation";

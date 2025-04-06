@@ -1,7 +1,7 @@
+import { NextRequest } from "next/server";
 import { validateRequest } from "@/auth";
 import prisma from "@/lib/prisma";
 import { getPostDataInclude, IPostsPage } from "@/lib/types";
-import { NextRequest } from "next/server";
 
 export const GET = async (req: NextRequest) => {
   try {

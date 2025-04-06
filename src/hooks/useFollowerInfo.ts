@@ -1,6 +1,6 @@
+import { useQuery } from "@tanstack/react-query";
 import kyInstance from "@/lib/ky";
 import { IFollowerInfo } from "@/lib/types";
-import { useQuery } from "@tanstack/react-query";
 
 export default function useFollowerInfo(
   userId: string,

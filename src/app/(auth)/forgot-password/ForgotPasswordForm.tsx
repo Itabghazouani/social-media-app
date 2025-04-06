@@ -1,12 +1,13 @@
 "use client";
 
+import { AlertCircle, CheckCircle2 } from "lucide-react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useState, useTransition } from "react";
+import { useForm } from "react-hook-form";
 import {
   requestPasswordResetSchema,
   RequestPasswordResetValues,
 } from "@/lib/validation";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useState, useTransition } from "react";
-import { useForm } from "react-hook-form";
 
 import {
   Form,
@@ -18,7 +19,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { LoadingButton } from "@/components";
-import { AlertCircle, CheckCircle2 } from "lucide-react";
 import { requestPasswordReset } from "./actions";
 
 const ForgotPasswordForm = () => {

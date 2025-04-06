@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
+import { useTransition } from "react";
 import { verificationSchema, VerificationValues } from "@/lib/validation";
 import {
   Form,
@@ -13,10 +15,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { LoadingButton } from "@/components";
-import { useTransition } from "react";
 import { verifyEmail, resendVerificationCode } from "./actions";
-import { useRouter } from "next/navigation";
+import LoadingButton from "@/components/LoadingButton";
 
 const EmailVerificationForm = ({ userEmail }: { userEmail: string }) => {
   const [error, setError] = useState<string>();

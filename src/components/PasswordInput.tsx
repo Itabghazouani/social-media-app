@@ -1,9 +1,9 @@
 "use client";
 
 import { forwardRef, useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
 import { Input, InputProps } from "./ui/input";
 import { cn } from "@/lib/utils";
-import { Eye, EyeOff } from "lucide-react";
 
 const PasswordInput = forwardRef<HTMLInputElement, InputProps>(
   ({ className, ...props }, ref) => {

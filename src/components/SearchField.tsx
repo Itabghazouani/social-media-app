@@ -2,8 +2,8 @@
 
 import { useRouter } from "next/navigation";
 import { FormEvent } from "react";
-import { Input } from "./ui/input";
 import { SearchIcon } from "lucide-react";
+import { Input } from "./ui/input";
 
 const SearchField = () => {
   const router = useRouter();

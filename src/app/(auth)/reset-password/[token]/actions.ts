@@ -1,7 +1,8 @@
 "use server";
 
-import bcrypt from "bcrypt";
+import { redirect } from "next/navigation";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
+import bcrypt from "bcrypt";
 import {
   deletePasswordResetToken,
   validatePasswordResetToken,
@@ -10,7 +11,6 @@ import { resetPasswordSchema, ResetPasswordValues } from "@/lib/validation";
 import { lucia } from "@/auth";
 import prisma from "@/lib/prisma";
 import { createSessionCookie } from "@/lib/createSessionCookie";
-import { redirect } from "next/navigation";
 
 export const resetPassword = async (
   token: string,

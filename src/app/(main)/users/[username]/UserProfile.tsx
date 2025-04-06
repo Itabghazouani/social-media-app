@@ -1,7 +1,8 @@
-import { UserAvatar } from "@/components";
-import FollowButton from "@/components/FollowButton";
-import FollowerCount from "@/components/FollowerCount";
+import FollowButton from "@/components/follow/FollowButton";
+import FollowerCount from "@/components/follow/FollowerCount";
+import Linkify from "@/components/linkify/Linkify";
 import { Button } from "@/components/ui/button";
+import UserAvatar from "@/components/user/UserAvatar";
 import { IFollowerInfo, TUserData } from "@/lib/types";
 import { formatNumber } from "@/lib/utils";
 import { formatDate } from "date-fns";
@@ -52,9 +53,11 @@ const UserProfile = async ({ loggedInUserId, user }: IUserProfileProps) => {
       {user.bio && (
         <>
           <hr />
-          <div className="overflow-hidden whitespace-pre-line break-words">
-            {user.bio}
-          </div>
+          <Linkify>
+            <div className="overflow-hidden whitespace-pre-line break-words">
+              {user.bio}
+            </div>
+          </Linkify>
         </>
       )}
     </div>

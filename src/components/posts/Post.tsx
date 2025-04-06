@@ -1,11 +1,13 @@
 "use client";
 
-import { TPostData } from "@/lib/types";
 import Link from "next/link";
-import UserAvatar from "../UserAvatar";
+import { TPostData } from "@/lib/types";
+import UserAvatar from "../user/UserAvatar";
 import { formatRelativeDate } from "@/lib/utils";
 import { useSession } from "@/app/(main)/SessionProvider";
 import PostMoreButton from "./PostMoreButton";
+import Linkify from "../linkify/Linkify";
+import UserTooltip from "../user/UserTooltip";
 
 interface IPostProps {
   post: TPostData;
@@ -18,16 +20,20 @@ const Post = ({ post }: IPostProps) => {
     <article className="group/post space-y-3 rounded-2xl bg-card p-5 shadow-sm">
       <div className="flex justify-between gap-3">
         <div className="flex flex-wrap gap-3">
-          <Link href={`/users/${post.user.username}`}>
-            <UserAvatar avatarUrl={post.user.avatarUrl} />
-          </Link>
-          <div className="">
-            <Link
-              href={`/users/${post.user.username}`}
-              className="block font-medium hover:underline"
-            >
-              {post.user.displayName}
+          <UserTooltip user={post.user}>
+            <Link href={`/users/${post.user.username}`}>
+              <UserAvatar avatarUrl={post.user.avatarUrl} />
             </Link>
+          </UserTooltip>
+          <div>
+            <UserTooltip user={post.user}>
+              <Link
+                href={`/users/${post.user.username}`}
+                className="block font-medium hover:underline"
+              >
+                {post.user.displayName}
+              </Link>
+            </UserTooltip>
             <Link
               href={`posts/${post.id}`}
               className="block text-sm text-muted-foreground hover:underline"
@@ -43,7 +49,9 @@ const Post = ({ post }: IPostProps) => {
           />
         )}
       </div>
-      <div className="whitespace-pre-line break-words">{post.content}</div>
+      <Linkify>
+        <div className="whitespace-pre-line break-words">{post.content}</div>
+      </Linkify>
     </article>
   );
 };
