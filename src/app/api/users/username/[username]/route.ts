@@ -7,7 +7,7 @@ export const GET = async (
   { params }: { params: { username: string } },
 ) => {
   try {
-    const { username } = params;
+    const { username } = await params;
     const { user: loggedInUser } = await validateRequest();
 
     if (!loggedInUser) return new Response("Unauthorized", { status: 401 });

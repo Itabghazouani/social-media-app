@@ -10,8 +10,9 @@ export interface IPageProps {
 }
 
 export const generateMetadata = async ({
-  params: { username },
+  params,
 }: IPageProps): Promise<Metadata> => {
+  const { username } = await params;
   const { user: loggedInUser } = await validateRequest();
   if (!loggedInUser) return {};
 
@@ -23,7 +24,7 @@ export const generateMetadata = async ({
 };
 
 const Page = async ({ params }: IPageProps) => {
-  const { username } = params;
+  const { username } = await params;
   const { user: loggedInUser } = await validateRequest();
 
   if (!loggedInUser) {

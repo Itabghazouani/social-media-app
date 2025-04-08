@@ -1,11 +1,11 @@
 import FollowButton from "@/components/follow/FollowButton";
 import FollowerCount from "@/components/follow/FollowerCount";
 import Linkify from "@/components/linkify/Linkify";
-import { Button } from "@/components/ui/button";
 import UserAvatar from "@/components/user/UserAvatar";
 import { IFollowerInfo, TUserData } from "@/lib/types";
 import { formatNumber } from "@/lib/utils";
 import { formatDate } from "date-fns";
+import EditProfileButton from "./EditProfileButton";
 
 interface IUserProfileProps {
   user: TUserData;
@@ -45,7 +45,7 @@ const UserProfile = async ({ loggedInUserId, user }: IUserProfileProps) => {
           </div>
         </div>
         {user.id === loggedInUserId ? (
-          <Button>Edit profile</Button>
+          <EditProfileButton user={user} />
         ) : (
           <FollowButton userId={user.id} initialState={followerInfo} />
         )}
