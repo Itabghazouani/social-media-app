@@ -31,14 +31,14 @@ export const signUpSchema = z
     path: ["confirmPassword"],
   });
 
-export type SignUpValues = z.infer<typeof signUpSchema>;
+export type TSignUpValues = z.infer<typeof signUpSchema>;
 
 export const loginSchema = z.object({
   emailOrUsername: emailOrUsername,
   password: requiredString("Password"),
 });
 
-export type LoginValues = z.infer<typeof loginSchema>;
+export type TLoginValues = z.infer<typeof loginSchema>;
 
 export const verificationSchema = z.object({
   code: z
@@ -47,13 +47,13 @@ export const verificationSchema = z.object({
     .max(6, "Verification code must be 6 characters long"),
 });
 
-export type VerificationValues = z.infer<typeof verificationSchema>;
+export type TVerificationValues = z.infer<typeof verificationSchema>;
 
 export const requestPasswordResetSchema = z.object({
   email: requiredString("Email").email("Invalid email address"),
 });
 
-export type RequestPasswordResetValues = z.infer<
+export type TRequestPasswordResetValues = z.infer<
   typeof requestPasswordResetSchema
 >;
 
@@ -67,8 +67,15 @@ export const resetPasswordSchema = z
     path: ["confirmPassword"],
   });
 
-export type ResetPasswordValues = z.infer<typeof resetPasswordSchema>;
+export type TResetPasswordValues = z.infer<typeof resetPasswordSchema>;
 
 export const createPostSchema = z.object({
   content: requiredString("Content"),
 });
+
+export const updateUserProfileSchema = z.object({
+  displayName: requiredString("Display Name"),
+  bio: z.string().max(1000, "Must be at most 1000 characters").optional(),
+});
+
+export type TUpdateUserProfileValues = z.infer<typeof updateUserProfileSchema>;

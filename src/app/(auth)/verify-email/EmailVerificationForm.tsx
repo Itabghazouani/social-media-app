@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
-import { verificationSchema, VerificationValues } from "@/lib/validation";
+import { verificationSchema, TVerificationValues } from "@/lib/validation";
 import {
   Form,
   FormControl,
@@ -25,14 +25,14 @@ const EmailVerificationForm = ({ userEmail }: { userEmail: string }) => {
   const [isResending, startResendTransition] = useTransition();
   const router = useRouter();
 
-  const form = useForm<VerificationValues>({
+  const form = useForm<TVerificationValues>({
     resolver: zodResolver(verificationSchema),
     defaultValues: {
       code: "",
     },
   });
 
-  const onSubmit = (values: VerificationValues) => {
+  const onSubmit = (values: TVerificationValues) => {
     setError(undefined);
     setSuccess(undefined);
     startVerifyTransition(async () => {

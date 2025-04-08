@@ -9,11 +9,11 @@ import {
   sendVerificationEmail,
 } from "@/lib/emailVerification";
 import prisma from "@/lib/prisma";
-import { signUpSchema, SignUpValues } from "@/lib/validation";
+import { signUpSchema, TSignUpValues } from "@/lib/validation";
 import bcrypt from "bcrypt";
 
 export const signUp = async (
-  credentials: SignUpValues,
+  credentials: TSignUpValues,
 ): Promise<{ error?: string; loading?: boolean }> => {
   try {
     const { username, email, password } = signUpSchema.parse(credentials);

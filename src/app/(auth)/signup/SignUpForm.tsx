@@ -3,7 +3,7 @@
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { signUpSchema, SignUpValues } from "@/lib/validation";
+import { signUpSchema, TSignUpValues } from "@/lib/validation";
 import {
   Form,
   FormControl,
@@ -20,7 +20,7 @@ const SignUpForm = () => {
   const [error, setError] = useState<string>();
   const [isPending, startTransition] = useTransition();
 
-  const form = useForm<SignUpValues>({
+  const form = useForm<TSignUpValues>({
     resolver: zodResolver(signUpSchema),
     defaultValues: {
       email: "",
@@ -30,7 +30,7 @@ const SignUpForm = () => {
     },
   });
 
-  const onSubmit = async (values: SignUpValues) => {
+  const onSubmit = async (values: TSignUpValues) => {
     setError(undefined);
     form.reset();
     startTransition(async () => {

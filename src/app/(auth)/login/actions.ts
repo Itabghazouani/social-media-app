@@ -4,11 +4,11 @@ import { isRedirectError } from "next/dist/client/components/redirect-error";
 import { redirect } from "next/navigation";
 import { createSessionCookie } from "@/lib/createSessionCookie";
 import prisma from "@/lib/prisma";
-import { loginSchema, LoginValues } from "@/lib/validation";
+import { loginSchema, TLoginValues } from "@/lib/validation";
 import bcrypt from "bcrypt";
 
 export const login = async (
-  credentials: LoginValues,
+  credentials: TLoginValues,
 ): Promise<{ error: string }> => {
   try {
     const { emailOrUsername, password } = loginSchema.parse(credentials);

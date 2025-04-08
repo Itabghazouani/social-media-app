@@ -7,11 +7,11 @@ import {
 import prisma from "@/lib/prisma";
 import {
   requestPasswordResetSchema,
-  RequestPasswordResetValues,
+  TRequestPasswordResetValues,
 } from "@/lib/validation";
 
 export const requestPasswordReset = async (
-  data: RequestPasswordResetValues,
+  data: TRequestPasswordResetValues,
 ): Promise<{ success?: boolean; error?: string }> => {
   try {
     const { email } = requestPasswordResetSchema.parse(data);

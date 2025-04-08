@@ -12,7 +12,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { resetPasswordSchema, ResetPasswordValues } from "@/lib/validation";
+import { resetPasswordSchema, TResetPasswordValues } from "@/lib/validation";
 import { resetPassword } from "./actions";
 import { LoadingButton, PasswordInput } from "@/components";
 
@@ -24,7 +24,7 @@ const ResetPasswordForm = ({ token }: IResetPasswordFormProps) => {
   const [error, setError] = useState<string>();
   const [isPending, startTransition] = useTransition();
 
-  const form = useForm<ResetPasswordValues>({
+  const form = useForm<TResetPasswordValues>({
     resolver: zodResolver(resetPasswordSchema),
     defaultValues: {
       password: "",
@@ -32,7 +32,7 @@ const ResetPasswordForm = ({ token }: IResetPasswordFormProps) => {
     },
   });
 
-  const onSubmit = async (values: ResetPasswordValues) => {
+  const onSubmit = async (values: TResetPasswordValues) => {
     setError(undefined);
 
     startTransition(async () => {

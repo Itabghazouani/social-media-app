@@ -6,7 +6,7 @@ import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import {
   requestPasswordResetSchema,
-  RequestPasswordResetValues,
+  TRequestPasswordResetValues,
 } from "@/lib/validation";
 
 import {
@@ -26,14 +26,14 @@ const ForgotPasswordForm = () => {
   const [success, setSuccess] = useState<boolean>(false);
   const [isPending, startTransition] = useTransition();
 
-  const form = useForm<RequestPasswordResetValues>({
+  const form = useForm<TRequestPasswordResetValues>({
     resolver: zodResolver(requestPasswordResetSchema),
     defaultValues: {
       email: "",
     },
   });
 
-  const onSubmit = async (values: RequestPasswordResetValues) => {
+  const onSubmit = async (values: TRequestPasswordResetValues) => {
     setError(undefined);
     setSuccess(false);
 

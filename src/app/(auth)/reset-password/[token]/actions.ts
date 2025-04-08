@@ -7,14 +7,14 @@ import {
   deletePasswordResetToken,
   validatePasswordResetToken,
 } from "@/lib/passwordReset";
-import { resetPasswordSchema, ResetPasswordValues } from "@/lib/validation";
+import { resetPasswordSchema, TResetPasswordValues } from "@/lib/validation";
 import { lucia } from "@/auth";
 import prisma from "@/lib/prisma";
 import { createSessionCookie } from "@/lib/createSessionCookie";
 
 export const resetPassword = async (
   token: string,
-  data: ResetPasswordValues,
+  data: TResetPasswordValues,
 ): Promise<{ error?: string }> => {
   try {
     const { password } = resetPasswordSchema.parse(data);

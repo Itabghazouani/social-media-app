@@ -4,7 +4,7 @@ import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
-import { loginSchema, LoginValues } from "@/lib/validation";
+import { loginSchema, TLoginValues } from "@/lib/validation";
 import { login } from "./actions";
 import {
   Form,
@@ -21,7 +21,7 @@ const LoginForm = () => {
   const [error, setError] = useState<string>();
   const [isPending, startTransition] = useTransition();
 
-  const form = useForm<LoginValues>({
+  const form = useForm<TLoginValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
       emailOrUsername: "",
@@ -29,7 +29,7 @@ const LoginForm = () => {
     },
   });
 
-  const onSubmit = async (values: LoginValues) => {
+  const onSubmit = async (values: TLoginValues) => {
     setError(undefined);
     startTransition(async () => {
       const { error } = await login(values);
