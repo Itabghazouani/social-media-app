@@ -8,6 +8,7 @@ import { useSession } from "@/app/(main)/SessionProvider";
 import PostMoreButton from "./PostMoreButton";
 import Linkify from "../linkify/Linkify";
 import UserTooltip from "../user/UserTooltip";
+import MediaPreviews from "./media/MediaPreviews";
 
 interface IPostProps {
   post: TPostData;
@@ -52,6 +53,9 @@ const Post = ({ post }: IPostProps) => {
       <Linkify>
         <div className="whitespace-pre-line break-words">{post.content}</div>
       </Linkify>
+      {!!post.attachments.length && (
+        <MediaPreviews attachments={post.attachments} />
+      )}
     </article>
   );
 };

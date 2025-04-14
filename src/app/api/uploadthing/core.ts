@@ -15,7 +15,6 @@ export const fileRouter = {
 
       if (!user) throw new UploadThingError("Unauthorized");
 
-      // Fetch the current user with avatarUrl
       const userWithAvatar = await prisma.user.findUnique({
         where: { id: user.id },
         select: { avatarUrl: true },
@@ -26,10 +25,8 @@ export const fileRouter = {
     .onUploadComplete(async ({ metadata, file }) => {
       const oldAvatarUrl = metadata.currentAvatarUrl;
 
-      // Delete old avatar if it exists
       if (oldAvatarUrl) {
         try {
-          // Extract the file key based on URL format
           let fileKey;
 
           if (oldAvatarUrl.includes("/f/")) {
@@ -47,12 +44,9 @@ export const fileRouter = {
           }
 
           if (fileKey) {
-            // Use the deleteFiles method as documented
             await utapi.deleteFiles(fileKey);
-            console.log(`Deleted old avatar: ${fileKey}`);
           }
         } catch (error) {
-          // Log error but continue with updating the avatar
           console.error("Error deleting old avatar:", error);
         }
       }
@@ -65,6 +59,27 @@ export const fileRouter = {
       });
 
       return { avatarUrl: newAvatarUrl };
+    }),
+  attachment: f({
+    image: { maxFileSize: "4MB", maxFileCount: 5 },
+    video: { maxFileSize: "64MB", maxFileCount: 5 },
+  })
+    .middleware(async () => {
+      const { user } = await validateRequest();
+
+      if (!user) throw new UploadThingError("Unauthorized");
+
+      return {};
+    })
+    .onUploadComplete(async ({ file }) => {
+      const media = await prisma.media.create({
+        data: {
+          url: file.ufsUrl,
+          type: file.type.startsWith("image") ? "IMAGE" : "VIDEO",
+        },
+      });
+
+      return { mediaId: media.id };
     }),
 } satisfies FileRouter;
 
