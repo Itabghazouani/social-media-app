@@ -31,6 +31,8 @@ model User {
   passwordResetTokens PasswordResetToken[]
   following           Follow[]               @relation("Following")
   followers           Follow[]               @relation("Followers")
+  likes               Like[]
+  bookmarks           Bookmark[]
 
   createdAt DateTime @default(now())
 
@@ -78,11 +80,13 @@ model Follow {
 }
 
 model Post {
-  id          String  @id @default(cuid())
+  id          String     @id @default(cuid())
   content     String
   userId      String
-  user        User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
   attachments Media[]
+  likes       Like[]
+  bookmarks   Bookmark[]
 
   createdAt DateTime @default(now())
 
@@ -104,4 +108,27 @@ model Media {
 enum MediaType {
   IMAGE
   VIDEO
+}
+
+model Like {
+  userId String
+  postId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, postId])
+  @@map("likes")
+}
+
+model Bookmark {
+  id     String @id @default(cuid())
+  userId String
+  postId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@unique([userId, postId])
+  @@map("bookmarks")
 }

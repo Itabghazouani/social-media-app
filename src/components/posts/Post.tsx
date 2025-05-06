@@ -9,6 +9,8 @@ import PostMoreButton from "./PostMoreButton";
 import Linkify from "../linkify/Linkify";
 import UserTooltip from "../user/UserTooltip";
 import MediaPreviews from "./media/MediaPreviews";
+import LikeButton from "./LikeButton";
+import BookmarkButton from "./BookmarkButton";
 
 interface IPostProps {
   post: TPostData;
@@ -16,7 +18,6 @@ interface IPostProps {
 
 const Post = ({ post }: IPostProps) => {
   const { user } = useSession();
-
   return (
     <article className="group/post space-y-3 rounded-2xl bg-card p-5 shadow-sm">
       <div className="flex justify-between gap-3">
@@ -56,6 +57,24 @@ const Post = ({ post }: IPostProps) => {
       {!!post.attachments.length && (
         <MediaPreviews attachments={post.attachments} />
       )}
+      <hr className="text-muted-foreground" />
+      <div className="flex justify-between gap-5">
+        <LikeButton
+          postId={post.id}
+          initialState={{
+            likes: post._count.likes,
+            isLikedByUser: post.likes.some((like) => like.userId === user.id),
+          }}
+        />
+        <BookmarkButton
+          postId={post.id}
+          initialState={{
+            isBookmarkedByUser: post.bookmarks.some(
+              ({ userId }) => userId === user.id,
+            ),
+          }}
+        />
+      </div>
     </article>
   );
 };
