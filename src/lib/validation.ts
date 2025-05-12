@@ -80,3 +80,7 @@ export const updateUserProfileSchema = z.object({
 });
 
 export type TUpdateUserProfileValues = z.infer<typeof updateUserProfileSchema>;
+
+export const createCommentSchema = z.object({
+  content: requiredString("Content"),
+});
